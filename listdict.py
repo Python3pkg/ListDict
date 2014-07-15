@@ -18,8 +18,7 @@ class ListDict(object):
     
     """
     __l is a list of lists of [value,label]
-    __d is a dictionary indexed by label containing the index into __l
-        of this [value,label]
+    __d is a set of labels
 
     If an item has a label, then the definitive value is in the
     structure, i.e. in self.__dict__. This is necessary so that
@@ -32,14 +31,14 @@ class ListDict(object):
             self.__l = [[i,None] for i in initial_list]
         else:
             self.__l = []
-        # Initialize the dictionary of labels:indexes.
-        self.__d = {}
+        # Initialize the set of labels.
+        self.__d = set()
     
     def append(self, val, label=None):
         v = [val,label]
         if label:
-            # If there's a label, save the index.
-            self.__d[label] = len(self.__l)
+            # If there's a label, save it.
+            self.__d.add(label)
             # And create a structure element.
             self.__dict__[label] = val
         self.__l.append(v)

@@ -2,19 +2,28 @@
 
 class ListDict(object):
     """
-    This is a container class that acts like a list and a dictionary and a structure.
+    This is a container class that acts like a list and a dictionary
+    and a structure.
     
     So far, "append" is the only list method supported.
     
-    The "append" method adds items to the list. If there's a second parameter, it is a label that can subsequently be used as an index, but that also is stored in the main dictionary. This means that an element could be read or written as, for example, ld[1], ld["somelabel"], and ld.somelabel.
+    The "append" method adds items to the list. If there's a second
+    parameter, it is a label that can subsequently be used as an
+    index, but that also is stored in the main dictionary. This means
+    that an element could be read or written as, for example, ld[1],
+    ld["somelabel"], and ld.somelabel.
     
     A ListDict can optionally be initialized with a starting list value.
     """
     
     """
     __l is a list of lists of [value,label]
-    __d is a dictionary indexed by label containing the index into __l of this [value,label]
-    If an item has a label, then the definitive value is in the structure, i.e. in self.__dict__. This is necessary so that ld.somelabel = value works.
+    __d is a dictionary indexed by label containing the index into __l
+        of this [value,label]
+
+    If an item has a label, then the definitive value is in the
+    structure, i.e. in self.__dict__. This is necessary so that
+    ld.somelabel=value works.
     """
     
     def __init__(self, initial_list=None):
@@ -50,10 +59,12 @@ class ListDict(object):
             # The index is a label; return the value from the structure.
             return self.__dict__[ix]
         elif self.__l[ix][1]:
-            # The index must be an integer, and this item has a label; return the value from the structure.
+            # The index must be an integer, and this item has a label;
+            # return the value from the structure.
             return self.__dict__[self.__l[ix][1]]
         else:
-            # The index must be an integer, and this item has no label; return the value from the list.
+            # The index must be an integer, and this item has no label;
+            # return the value from the list.
             return self.__l[ix][0]
 
     def __setitem__(self, ix, val):
@@ -61,15 +72,18 @@ class ListDict(object):
             # The index is a label; set the value in the structure.
             self.__dict__[ix] = val
         elif self.__l[ix][1]:
-            # The index must be an integer, and this item has a label; set the value in the structure.
+            # The index must be an integer, and this item has a label;
+            # set the value in the structure.
             self.__dict__[self.__l[ix][1]] = val
         else:
-            # The index must be an integer, and this item has no label; set the value in the list.
+            # The index must be an integer, and this item has no label;
+            # set the value in the list.
             self.__l[ix][0] = val
         
 
 if __name__ == "__main__":
-    # You must remove an underscore from __d for these tests. It should have two underscores for production.
+    # For these tests, __d cannot start with two underscores.
+    # It should have two underscores for production.
     ld = ListDict()
     ld.append(3, 'y')
     ld.append(4, 'z')

@@ -45,7 +45,7 @@ class ListDict(object):
     
     def __str__(self):
         # The __str__ is simply the str of the list part.
-        return str(list(val for val,label in self.__l))
+        return str(list(self))
     
     def __len__(self):
         return len(self.__l)
@@ -78,6 +78,19 @@ class ListDict(object):
             # The index must be an integer, and this item has no label;
             # set the value in the list.
             self.__l[ix][0] = val
+    
+    def __iadd__(self, other):
+        # Append all items in other to self.
+        for val,label in other.__l:
+            self.append(val, label)
+        return self
+    
+    def __add__(self, other):
+        # Create a new empty ListDict, then append self and other to it.
+        retval = ListDict()
+        retval += self
+        retval += other
+        return retval
         
 
 if __name__ == "__main__":
@@ -117,10 +130,10 @@ if __name__ == "__main__":
     print "new le =", le
     le.append(10)
     assert le[0] == 10
-    le.append(11, "z")
-    assert le["z"] == 11
+    le.append(11, "x")
+    assert le["x"] == 11
     assert le[1] == 11
-    assert le.z == 11
+    assert le.x == 11
     print "le =", le
     print le.__d
     
@@ -130,3 +143,33 @@ if __name__ == "__main__":
     assert lf[0] == 23
     print "lf =", lf
     print lf.__d
+
+    ld += le
+    assert ld[1] == 4
+    assert ld.z == 4
+    assert ld["z"] == 4
+    assert str(ld) == "[7, 4, 1, 10, 11]"
+    assert len(ld) == 5
+    assert ld["y"] == 7
+    assert ld[0] == 7
+    assert ld.y == 7
+    assert ld[2] == 1
+    
+    assert ld[3] == 10
+    assert ld["x"] == 11
+    assert ld[4] == 11
+    assert ld.x == 11
+    print "ld =", ld
+    print ld.__d
+    
+    lg = le + lf
+    assert len(lg) == 5
+    assert str(lg) == "[10, 11, 23, 21, 22]"
+    assert lg[0] == 10
+    assert lg["x"] == 11
+    assert lg[1] == 11
+    assert lg.x == 11
+    assert lg[2] == 23
+    print "lg =", lg
+    print lg.__d
+    

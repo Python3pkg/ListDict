@@ -141,26 +141,26 @@ if __name__ == "__main__":
     assert ld.y == 7
     ld[2] = 1
     assert ld[2] == 1
-    print ld
-    print ld.__d
+    print(ld)
+    print(ld.__d)
 
     le = ListDict()
-    print "new le =", le
+    print("new le =", le)
     le.append(10)
     assert le[0] == 10
     le.append(11, "x")
     assert le["x"] == 11
     assert le[1] == 11
     assert le.x == 11
-    print "le =", le
-    print le.__d
+    print("le =", le)
+    print(le.__d)
 
     lf = ListDict([20,21,22])
     assert lf[0] == 20
     lf[0] = 23
     assert lf[0] == 23
-    print "lf =", lf
-    print lf.__d
+    print("lf =", lf)
+    print(lf.__d)
 
     ld += le
     assert ld[1] == 4
@@ -177,8 +177,8 @@ if __name__ == "__main__":
     assert ld["x"] == 11
     assert ld[4] == 11
     assert ld.x == 11
-    print "ld =", ld
-    print ld.__d
+    print("ld =", ld)
+    print(ld.__d)
 
     lg = le + lf
     assert len(lg) == 5
@@ -188,6 +188,6 @@ if __name__ == "__main__":
     assert lg[1] == 11
     assert lg.x == 11
     assert lg[2] == 23
-    print "lg =", lg
-    print lg.__d
+    print("lg =", lg)
+    print(lg.__d)
 
